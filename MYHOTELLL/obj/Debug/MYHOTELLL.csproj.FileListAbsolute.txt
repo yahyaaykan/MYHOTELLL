@@ -92,3 +92,7 @@ C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.csproj.Fody.CopyLocal.cache
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.csproj.CopyComplete
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.exe
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.pdb
+C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Bookings.resources
+C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Customers.resources
+C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Types.resources
+C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Users.resources

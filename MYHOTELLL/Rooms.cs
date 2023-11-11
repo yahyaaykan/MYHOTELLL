@@ -16,7 +16,33 @@ namespace MYHOTELLL
         {
             InitializeComponent();
         }
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\YAHYA\OneDrive\Belgeler\HotelDbase.mdf;Integrated Security=True;Connect Timeout=30");
+        private void InserRooms()
+        {
+            if (RnameTb.Text == "" || RTpeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
+            {
+                MessageBox.Show("Missing İnformation !!!");
+            }
+            else
+            {
+                try
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("insert into RoomTb1(RName,RType,RStatus)values(@RN,@RT@RS)", con);
+                    cmd.Parameters.AddWithValue("@RN", RnameTb.Text);
+                    cmd.Parameters.AddWithValue("@RT", RTpeCb.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@RS", "Available");
+                    cmd.ExecuteNonQuery();
+                    con.Close();
 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
         private void pictureBox4_Click(object sender, EventArgs e)
         {
 
@@ -119,7 +145,7 @@ namespace MYHOTELLL
 
         private void bunifuButton2_Click(object sender, EventArgs e)
         {
-
+            InserRooms();
         }
 
         private void bunifuButton1_Click(object sender, EventArgs e)
