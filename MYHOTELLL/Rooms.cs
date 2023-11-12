@@ -15,8 +15,55 @@ namespace MYHOTELLL
         public Rooms()
         {
             InitializeComponent();
+            populate();
         }
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\YAHYA\OneDrive\Belgeler\HotelDbase.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\YAHYA\OneDrive\Belgeler\HotelDbase.mdf;Integrated Security=True;Connect Timeout=30");
+
+        private Bunifu.UI.WinForms.BunifuDataGridView GetRoomsDGV()
+        {
+            return RoomsDGV;
+        }
+
+        private void populate()
+        {
+            Con.Open();
+            string Query = "select from RoomTb1";
+            SqlDataAdapter sda = new SqlDataAdapter(Query, Con);
+            SqlCommandBuilder Builder = new SqlCommandBuilder(sda);
+            var ds = new DataSet();
+            sda.Fill(ds);
+            RoomsDGV.DataSource = ds.Tables[0];
+            Con.Close();
+            populate();
+        }
+        private void EditRooms()
+        {
+            if (RnameTb.Text == "" || RTpeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
+            {
+                MessageBox.Show("Missing İnformation !!!");
+            }
+            else
+            {
+                try
+                {
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("update RoomTb1 set RName=@RN,RType=@RT,RStatus=@RS where Rnum = @RKey)", Con);
+                    cmd.Parameters.AddWithValue("@RN", RnameTb.Text);
+                    cmd.Parameters.AddWithValue("@RT", RTpeCb.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@RS", StatusCb.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@RKey", Key);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Room Added !!!");
+                    Con.Close();
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+        }
         private void InserRooms()
         {
             if (RnameTb.Text == "" || RTpeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
@@ -27,13 +74,14 @@ namespace MYHOTELLL
             {
                 try
                 {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("insert into RoomTb1(RName,RType,RStatus)values(@RN,@RT@RS)", con);
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("insert into RoomTb1(RName,RType,RStatus)values(@RN,@RT@RS)", Con);
                     cmd.Parameters.AddWithValue("@RN", RnameTb.Text);
                     cmd.Parameters.AddWithValue("@RT", RTpeCb.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@RS", "Available");
                     cmd.ExecuteNonQuery();
-                    con.Close();
+                    MessageBox.Show("Room Added !!!");
+                    Con.Close();
 
                 }
                 catch (Exception ex)
@@ -150,12 +198,22 @@ namespace MYHOTELLL
 
         private void bunifuButton1_Click(object sender, EventArgs e)
         {
-
+            EditRooms();
         }
-
+        int Key = 0;
         private void bunifuDataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            RnameTb.Text = RoomsDGV.SelectedRows[0].Cells[1].Value.ToString();
+            RTpeCb.Text = RoomsDGV.SelectedRows[0].Cells[2].Value.ToString();
+            StatusCb.Text = RoomsDGV.SelectedRows[0].Cells[3].Value.ToString();
+            if (RnameTb.Text == "")
+            {
+                Key = 0;
+            }
+            else
+            {
+                Key = Convert.ToInt32(RoomsDGV.SelectedRows[0].Cells[0].Value.ToString());
+            }
         }
 
         private void bunifuTextBox1_TextChanged(object sender, EventArgs e)
