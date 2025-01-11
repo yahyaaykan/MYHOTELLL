@@ -176,6 +176,7 @@
             this.DeleteBtn.TextMarginLeft = 0;
             this.DeleteBtn.TextPadding = new System.Windows.Forms.Padding(0);
             this.DeleteBtn.UseDefaultRadiusAndThickness = true;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
             // EditBtn
             // 
@@ -267,6 +268,7 @@
             this.EditBtn.TextMarginLeft = 0;
             this.EditBtn.TextPadding = new System.Windows.Forms.Padding(0);
             this.EditBtn.UseDefaultRadiusAndThickness = true;
+            this.EditBtn.Click += new System.EventHandler(this.EditBtn_Click);
             // 
             // TypeNameTb
             // 
@@ -684,6 +686,7 @@
             this.TypesDGV.Size = new System.Drawing.Size(1103, 315);
             this.TypesDGV.TabIndex = 3;
             this.TypesDGV.Theme = Bunifu.UI.WinForms.BunifuDataGridView.PresetThemes.DarkSlateGray;
+            this.TypesDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.TypesDGV_CellContentClick);
             // 
             // CostTb
             // 

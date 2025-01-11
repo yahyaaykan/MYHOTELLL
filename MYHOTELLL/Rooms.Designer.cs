@@ -66,7 +66,7 @@
             this.RnameTb = new Bunifu.UI.WinForms.BunifuTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.StatusCb = new System.Windows.Forms.ComboBox();
-            this.RTpeCb = new System.Windows.Forms.ComboBox();
+            this.RTypeCb = new System.Windows.Forms.ComboBox();
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.panel1.SuspendLayout();
@@ -320,7 +320,7 @@
             this.panel2.Controls.Add(this.RnameTb);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.StatusCb);
-            this.panel2.Controls.Add(this.RTpeCb);
+            this.panel2.Controls.Add(this.RTypeCb);
             this.panel2.Location = new System.Drawing.Point(165, 68);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1219, 705);
@@ -767,20 +767,20 @@
             this.StatusCb.Text = "Status";
             this.StatusCb.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
-            // RTpeCb
+            // RTypeCb
             // 
-            this.RTpeCb.FormattingEnabled = true;
-            this.RTpeCb.Items.AddRange(new object[] {
+            this.RTypeCb.FormattingEnabled = true;
+            this.RTypeCb.Items.AddRange(new object[] {
             "Standard",
             "Single",
             "VIP",
             "KİNG"});
-            this.RTpeCb.Location = new System.Drawing.Point(454, 70);
-            this.RTpeCb.Name = "RTpeCb";
-            this.RTpeCb.Size = new System.Drawing.Size(154, 27);
-            this.RTpeCb.TabIndex = 1;
-            this.RTpeCb.Text = "Room Types";
-            this.RTpeCb.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.RTypeCb.Location = new System.Drawing.Point(454, 70);
+            this.RTypeCb.Name = "RTypeCb";
+            this.RTypeCb.Size = new System.Drawing.Size(154, 27);
+            this.RTypeCb.TabIndex = 1;
+            this.RTypeCb.Text = "Room Types";
+            this.RTypeCb.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // bunifuElipse1
             // 
@@ -848,7 +848,7 @@
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox StatusCb;
-        private System.Windows.Forms.ComboBox RTpeCb;
+        private System.Windows.Forms.ComboBox RTypeCb;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private System.Windows.Forms.Label label9;
         private Bunifu.UI.WinForms.BunifuButton.BunifuButton DeleteBtn;

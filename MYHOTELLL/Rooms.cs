@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Runtime.Remoting.Contexts;
 namespace MYHOTELLL
 {
     public partial class Rooms : Form
@@ -16,8 +17,10 @@ namespace MYHOTELLL
         {
             InitializeComponent();
             populate();
+            GetCategories();
+            
         }
-        SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\YAHYA\OneDrive\Belgeler\HotelDbase.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\\YAHYA\OneDrive\Belgeler\HotelDbase.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True");
 
         private Bunifu.UI.WinForms.BunifuDataGridView GetRoomsDGV()
         {
@@ -26,8 +29,9 @@ namespace MYHOTELLL
 
         private void populate()
         {
+
             Con.Open();
-            string Query = "select from RoomTb1";
+            string Query = "select * from RoomTb1";
             SqlDataAdapter sda = new SqlDataAdapter(Query, Con);
             SqlCommandBuilder Builder = new SqlCommandBuilder(sda);
             var ds = new DataSet();
@@ -38,7 +42,7 @@ namespace MYHOTELLL
         }
         private void EditRooms()
         {
-            if (RnameTb.Text == "" || RTpeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
+            if (RnameTb.Text == "" || RTypeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
             {
                 MessageBox.Show("Missing İnformation !!!");
             }
@@ -47,9 +51,9 @@ namespace MYHOTELLL
                 try
                 {
                     Con.Open();
-                    SqlCommand cmd = new SqlCommand("update RoomTb1 set RName=@RN,RType=@RT,RStatus=@RS where Rnum = @RKey)", Con);
+                    SqlCommand cmd = new SqlCommand("update RoomTb1 set RName=@RN,RType=@RT,RStatus=@RS where Rnum = @RKey", Con);
                     cmd.Parameters.AddWithValue("@RN", RnameTb.Text);
-                    cmd.Parameters.AddWithValue("@RT", RTpeCb.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@RT", RTypeCb.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@RS", StatusCb.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@RKey", Key);
                     cmd.ExecuteNonQuery();
@@ -64,9 +68,35 @@ namespace MYHOTELLL
 
             }
         }
-        private void InserRooms()
+        private void DeleteRooms()
         {
-            if (RnameTb.Text == "" || RTpeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
+            if (Key == 0)
+            {
+                MessageBox.Show("Select a Room !!! ");
+            }
+            else
+            {
+                try
+                {
+                    Con.Open();
+                    SqlCommand cmd = new SqlCommand("delete from RoomTb1 where Rnum = @RKey", Con);
+                    cmd.Parameters.AddWithValue("RKey", Key);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Room Deleted !!! ");
+                    Con.Close();
+                    populate();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                    throw;
+                }
+            }
+        }
+    
+        private void InsertRooms()
+        {
+            if (RnameTb.Text == "" || RTypeCb.SelectedIndex == -1 || StatusCb.SelectedIndex == -1)
             {
                 MessageBox.Show("Missing İnformation !!!");
             }
@@ -75,21 +105,34 @@ namespace MYHOTELLL
                 try
                 {
                     Con.Open();
-                    SqlCommand cmd = new SqlCommand("insert into RoomTb1(RName,RType,RStatus)values(@RN,@RT@RS)", Con);
+                    SqlCommand cmd = new SqlCommand("insert into RoomTb1(RName,RType,RStatus) values(@RN,@RT,@RS)", Con);
                     cmd.Parameters.AddWithValue("@RN", RnameTb.Text);
-                    cmd.Parameters.AddWithValue("@RT", RTpeCb.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@RT", RTypeCb.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@RS", "Available");
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Room Added !!!");
                     Con.Close();
 
                 }
-                catch (Exception ex)
+                catch (Exception Ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(Ex.Message);
                 }
 
             }
+        }
+        private void GetCategories ()
+        {
+            Con.Open ();
+            SqlCommand cmd = new SqlCommand("select * from Type1", Con);
+            SqlDataReader rdr;
+            rdr= cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("TypeNum", typeof(int));
+            dt.Load(rdr);
+            RTypeCb.ValueMember = "TypeNum";
+            RTypeCb.DataSource= dt;
+            Con.Close();
         }
         private void pictureBox4_Click(object sender, EventArgs e)
         {
@@ -188,12 +231,12 @@ namespace MYHOTELLL
 
         private void bunifuButton3_Click(object sender, EventArgs e)
         {
-
+            DeleteRooms();
         }
 
         private void bunifuButton2_Click(object sender, EventArgs e)
         {
-            InserRooms();
+            InsertRooms();
         }
 
         private void bunifuButton1_Click(object sender, EventArgs e)
@@ -204,7 +247,7 @@ namespace MYHOTELLL
         private void bunifuDataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             RnameTb.Text = RoomsDGV.SelectedRows[0].Cells[1].Value.ToString();
-            RTpeCb.Text = RoomsDGV.SelectedRows[0].Cells[2].Value.ToString();
+            RTypeCb.Text = RoomsDGV.SelectedRows[0].Cells[2].Value.ToString();
             StatusCb.Text = RoomsDGV.SelectedRows[0].Cells[3].Value.ToString();
             if (RnameTb.Text == "")
             {

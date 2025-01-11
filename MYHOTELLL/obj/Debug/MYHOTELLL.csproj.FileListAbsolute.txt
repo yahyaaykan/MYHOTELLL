@@ -82,7 +82,6 @@ C:\Github\MYHOTELLL\MYHOTELLL\bin\Debug\System.ServiceProcess.ServiceController.
 C:\Github\MYHOTELLL\MYHOTELLL\bin\Debug\System.Text.Encoding.CodePages.xml
 C:\Github\MYHOTELLL\MYHOTELLL\bin\Debug\System.Threading.AccessControl.xml
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.csproj.AssemblyReference.cache
-C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.csproj.SuggestedBindingRedirects.cache
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Rooms.resources
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Properties.Resources.resources
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.csproj.GenerateResource.cache
@@ -96,3 +95,5 @@ C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Bookings.resources
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Customers.resources
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Types.resources
 C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Users.resources
+C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Login.resources
+C:\Github\MYHOTELLL\MYHOTELLL\obj\Debug\MYHOTELLL.Splash.resources
